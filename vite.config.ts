@@ -11,13 +11,27 @@ import { VitePWA } from 'vite-plugin-pwa'
 import VueI18n from '@intlify/vite-plugin-vue-i18n'
 import Prism from 'markdown-it-prism'
 import LinkAttributes from 'markdown-it-link-attributes'
+import { string } from 'rollup-plugin-string'
+import styleImport from 'vite-plugin-style-import'
 
 export default defineConfig({
+  base: './',
   resolve: {
     alias: {
       '~/': `${path.resolve(__dirname, 'src')}/`,
     },
+    /* remove the need to specify .vue files https://vitejs.dev/config/#resolve-extensions
+    extensions: [
+      '.js',
+      '.json',
+      '.jsx',
+      '.mjs',
+      '.ts',
+      '.tsx',
+      '.vue',
+    ]*/
   },
+  define: { 'process.env': {} },
   plugins: [
     Vue({
       include: [/\.vue$/, /\.md$/],
@@ -35,7 +49,7 @@ export default defineConfig({
     Markdown({
       wrapperClasses: 'prose prose-sm m-auto text-left',
       headEnabled: true,
-      markdownItSetup(md) {
+      markdownItSetup (md) {
         // https://prismjs.com/
         md.use(Prism)
         md.use(LinkAttributes, {
@@ -109,6 +123,29 @@ export default defineConfig({
     VueI18n({
       include: [path.resolve(__dirname, 'locales/**')],
     }),
+
+    string({
+      // Required to be specified
+      include: '**/*.t',
+
+      // Undefined by default
+      //exclude: ["**/index.html"]
+    }),
+    /*styleImport({
+      libs: [
+        {
+          libraryName: 'element-plus',
+          esModule: true,
+          ensureStyleFile: true,
+          resolveStyle: (name) => {
+            return `element-plus/lib/theme-chalk/${name}.css`
+          },
+          resolveComponent: (name) => {
+            return `element-plus/lib/${name}`
+          },
+        }
+      ]
+    })*/
   ],
   // https://github.com/antfu/vite-ssg
   ssgOptions: {

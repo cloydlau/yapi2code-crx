@@ -6,8 +6,16 @@ button:
   toggle_dark: Toggle dark mode
   toggle_langs: Change languages
 intro:
-  desc: Opinionated Vite Starter Template
+  desc: Turning YApi docs into Admate codes
   dynamic-route: Demo of dynamic route
   hi: Hi, {name}!
   whats-your-name: What's your name?
 not-found: Not found
+globally: globally
+partially: partially
+import-mode: import Admate
+gen:
+  button: Generate Code
+  succeeded: Succeeded, code is copied.
+  failed: Failed, make sure you're targeting query-table API on YApi.
+guide: Make sure [query-table] API is selected

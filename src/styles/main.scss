@@ -3,9 +3,10 @@
 html,
 body,
 #app {
-  height: 100%;
-  margin: 0;
   padding: 0;
+  width: 400px;
+  height: 600px; // 超过600会出滚动条
+  margin: auto;
 }
 
 html.dark {

@@ -1,0 +1,46 @@
+{
+  "manifest_version": 2,
+  "name": "YApi2Code",
+  "version": "0.0.1",
+  "description": "Turning YApi docs into Admate codes",
+  "author": "cloydlau",
+  "browser_action": {
+    "default_title": "YApi2Code",
+    "default_popup": "dist/index.html"
+  },
+  "icons": {
+    "16": "public/favicon.png",
+    "48": "public/favicon.png",
+    "128": "public/favicon.png"
+  },
+  "background": {
+    "scripts": [
+      "crx/background.js"
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "crx/content-script.js"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "permissions": [
+    "tabs",
+    "notifications",
+    "storage",
+    "http://*/*",
+    "https://*/*"
+  ],
+  "omnibox": {
+    "keyword": "yapi2code"
+  },
+  "web_accessible_resources": [
+    "inject.js"
+  ],
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+}

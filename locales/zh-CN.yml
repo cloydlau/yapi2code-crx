@@ -6,8 +6,16 @@ button:
   toggle_dark: 切换深色模式
   toggle_langs: 切换语言
 intro:
-  desc: 固执己见的 Vite 项目模板
+  desc: YApi文档一键生成Admate代码
   dynamic-route: 动态路由演示
   hi: 你好，{name}
   whats-your-name: 输入你的名字
 not-found: 未找到页面
+globally: 全局注册
+partially: 局部引入
+import-mode: 引入 Admate 的方式：
+gen:
+  button: 生成代码
+  succeeded: 成功，代码已复制。
+  failed: 失败，请确认当前是否位于 YApi - 查询表格
+guide: 请先选中 [查询表格] 接口
