@@ -10,6 +10,7 @@ import WindiCSS from 'vite-plugin-windicss'
 import { VitePWA } from 'vite-plugin-pwa'
 import VueI18n from '@intlify/vite-plugin-vue-i18n'
 import Prism from 'markdown-it-prism'
+// @ts-expect-error missing types
 import LinkAttributes from 'markdown-it-link-attributes'
 import { string } from 'rollup-plugin-string'
 import styleImport from 'vite-plugin-style-import'
