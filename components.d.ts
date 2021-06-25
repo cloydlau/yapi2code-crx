@@ -6,6 +6,12 @@ declare module 'vue' {
     Footer: typeof import('./src/components/Footer.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     README: typeof import('./src/components/README.md')['default']
+    FileIconsApiBlueprint: typeof import('virtual:vite-icons/file-icons/api-blueprint')['default']
+    CarbonMoon: typeof import('virtual:vite-icons/carbon/moon')['default']
+    CarbonSun: typeof import('virtual:vite-icons/carbon/sun')['default']
+    CarbonLanguage: typeof import('virtual:vite-icons/carbon/language')['default']
+    CarbonDicomOverlay: typeof import('virtual:vite-icons/carbon/dicom-overlay')['default']
+    CarbonLogoGithub: typeof import('virtual:vite-icons/carbon/logo-github')['default']
   }
 }
 
