@@ -72,7 +72,7 @@ if (envIsPopup) {
           name,
           params,
           res,
-          importMode
+          importMode: importMode.value
         })
 
         copyToClipboard(result.value)
@@ -102,7 +102,7 @@ function gen () {
       name: ``,
       params: ``,
       res: ``,
-      importMode
+      importMode: importMode.value
     })
     copyToClipboard(result.value)
     popover.show = true
