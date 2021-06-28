@@ -18,19 +18,8 @@
       "crx/background.js"
     ]
   },
-  "content_scripts": [
-    {
-      "matches": [
-        "<all_urls>"
-      ],
-      "js": [
-        "crx/content-script.js"
-      ],
-      "run_at": "document_start"
-    }
-  ],
   "permissions": [
-    "tabs"
+    "activeTab"
   ],
   "omnibox": {
     "keyword": "yapi2code"
