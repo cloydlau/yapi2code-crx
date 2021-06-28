@@ -1,7 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
-  '@iconify/json': ^1.1.361
+  '@iconify/json': ^1.1.362
   '@intlify/vite-plugin-vue-i18n': ^2.2.1
   '@mdi/font': ^5.9.55
   '@types/nprogress': ^0.2.0
@@ -51,7 +51,7 @@ dependencies:
   vue-router: 4.0.10_vue@3.1.2
 
 devDependencies:
-  '@iconify/json': 1.1.361
+  '@iconify/json': 1.1.362
   '@intlify/vite-plugin-vue-i18n': 2.2.1_vite@2.3.8+vue-i18n@9.1.6
   '@types/nprogress': 0.2.0
   '@vitejs/plugin-vue': 1.2.4_@vue+compiler-sfc@3.1.2
@@ -66,7 +66,7 @@ devDependencies:
   typescript: 4.3.4
   vite: 2.3.8
   vite-plugin-components: 0.11.2_vite@2.3.8
-  vite-plugin-icons: 0.6.3_bfa27b8974a46b368d6bdc2dee2b0f91
+  vite-plugin-icons: 0.6.3_c3ce7dd2cc8ab94ca758644f12e11c8e
   vite-plugin-md: 0.6.7_vite@2.3.8
   vite-plugin-pages: 0.13.4_vite@2.3.8
   vite-plugin-pwa: 0.8.1_vite@2.3.8
@@ -1259,8 +1259,8 @@ packages:
     resolution: {integrity: sha512-LFelJDOLZ6JHlmlAkgrvmcu4hpNPB91KYcr4f60D/exzU1eNOb4/KCVHIydGHIQFaOacIOD+Xy+B7P1z812cZg==}
     dev: true
 
-  /@iconify/json/1.1.361:
-    resolution: {integrity: sha512-p7RMNFNI1YLFCJ0Ads6LOtJyLsheYM+XBSrhcTYxjuCmr2dv2j4DFp0Bh3HLwybtdPo3cA7Xo8Wqk8djvoVm/g==}
+  /@iconify/json/1.1.362:
+    resolution: {integrity: sha512-oKU1KvmcLX/049RXi7FJsNgiodei7LhNetls3cv+oIkTUTIa5mi88oFfRj03B6c1Vja80ZLH+mSDLeTk1fMD5A==}
     dev: true
 
   /@intlify/cli/0.5.0:
@@ -6014,7 +6014,7 @@ packages:
       - supports-color
     dev: true
 
-  /vite-plugin-icons/0.6.3_bfa27b8974a46b368d6bdc2dee2b0f91:
+  /vite-plugin-icons/0.6.3_c3ce7dd2cc8ab94ca758644f12e11c8e:
     resolution: {integrity: sha512-h+DNh9xMBhISNBZ/broslVRk/DbgDXV71u2Ienoz8G0W81+tzbtPHsE6imnwqW93h0qtS1VnVyOQlqsKcheLtw==}
     peerDependencies:
       '@iconify/json': '*'
@@ -6026,7 +6026,7 @@ packages:
       vue-template-compiler:
         optional: true
     dependencies:
-      '@iconify/json': 1.1.361
+      '@iconify/json': 1.1.362
       '@iconify/json-tools': 1.0.10
       '@vue/compiler-sfc': 3.1.2_vue@3.1.2
       vue-template-es2015-compiler: 1.9.1

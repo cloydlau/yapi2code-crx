@@ -30,11 +30,7 @@
     }
   ],
   "permissions": [
-    "tabs",
-    "notifications",
-    "storage",
-    "http://*/*",
-    "https://*/*"
+    "tabs"
   ],
   "omnibox": {
     "keyword": "yapi2code"

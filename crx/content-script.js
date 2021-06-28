@@ -1,4 +1,4 @@
-﻿//console.log('content-script', chrome)
+﻿//console.log('[content-script] yapi2code is ready', chrome)
 
 const delay = 200
 
