@@ -1,6 +1,6 @@
 <%
   params && (params = JSON.parse(params).properties)
-  const isPartial = importMode === 'partial'
+  const isPartial = importMode === 'partially'
   // 结构
   // `{"properties":{"data":{"properties":{}}}}`
   let data = JSON.parse(res).properties.data
