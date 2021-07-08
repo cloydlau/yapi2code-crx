@@ -33,11 +33,7 @@ function getParamsAndRes () {
 
 function response (sendResponse) {
   // 异步无效
-  /*sendResponse('from content-script：' + JSON.stringify({
-    name: url?.split('/')?.[1],
-    params: req_body_other,
-    res: res_body
-  }))*/
+  //sendResponse('from content-script：' + JSON.stringify(msg))
 
   chrome.runtime.sendMessage(
     msg,
@@ -45,64 +41,73 @@ function response (sendResponse) {
       //console.log('收到来自background或popup的回复：' + response)
     }
   )
+
+  msg = {
+    action: '',
+    name: '',
+    params: '',
+    res: ''
+  }
 }
 
-// 接收background或popup的消息
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  //console.log('收到来自 ' + (sender.tab ? 'content-script(' + sender.tab.url + ')' : 'popup或者background') + ' 的消息：', request)
-  if (request?.action === 'gen') {
-    msg = {
-      action: request?.action,
-      name: '',
-      params: '',
-      res: ''
-    }
+function getEjsArgs (sendResponse) {
+  const preview = document.querySelector('.interface-content .ant-tabs-tab:nth-child(2)')
+  const edit = document.querySelector('.interface-content .ant-tabs-tab:nth-child(3)')
 
-    const preview = document.querySelector('.interface-content .ant-tabs-tab:nth-child(2)')
-    const edit = document.querySelector('.interface-content .ant-tabs-tab:nth-child(3)')
-
-    // 当前选中【预览】
-    if (preview?.classList.contains('ant-tabs-tab-active')) {
-      getName()
-      edit?.click()
+  // 当前选中【预览】
+  if (preview?.classList.contains('ant-tabs-tab-active')) {
+    getName()
+    edit?.click()
+    confirmTabSwitching()
+    // 将同步代码变为宏任务 执行顺序排在click事件（同为宏任务）之后
+    setTimeout(() => {
+      getParamsAndRes()
+      response(sendResponse)
+      preview?.click()
       confirmTabSwitching()
-      // 将同步代码变为宏任务 执行顺序排在click事件（同为宏任务）之后
-      setTimeout(() => {
-        getParamsAndRes()
-        response(sendResponse)
-        preview?.click()
-        confirmTabSwitching()
-      }, delay)
-    }
-    // 当前选中【编辑】
-    else if (edit?.classList.contains('ant-tabs-tab-active')) {
+    }, delay)
+  }
+  // 当前选中【编辑】
+  else if (edit?.classList.contains('ant-tabs-tab-active')) {
+    getParamsAndRes()
+    preview?.click()
+    confirmTabSwitching()
+    // 将同步代码变为宏任务 执行顺序排在click事件（同为宏任务）之后
+    setTimeout(() => {
+      getName()
+      response(sendResponse)
+    }, delay)
+  }
+  // 当前选中其他选项
+  else if (preview) {
+    edit?.click()
+    confirmTabSwitching()
+    // 将同步代码变为宏任务 执行顺序排在click事件（同为宏任务）之后
+    setTimeout(() => {
       getParamsAndRes()
       preview?.click()
       confirmTabSwitching()
-      // 将同步代码变为宏任务 执行顺序排在click事件（同为宏任务）之后
       setTimeout(() => {
         getName()
         response(sendResponse)
       }, delay)
-    }
-    // 当前选中其他选项
-    else if (preview) {
-      edit?.click()
-      confirmTabSwitching()
-      // 将同步代码变为宏任务 执行顺序排在click事件（同为宏任务）之后
-      setTimeout(() => {
-        getParamsAndRes()
-        preview?.click()
-        confirmTabSwitching()
-        setTimeout(() => {
-          getName()
-          response(sendResponse)
-        }, delay)
-      }, delay)
-    }
-    // 获取参数失败
-    else {
-      response(sendResponse)
-    }
+    }, delay)
+  }
+  // 获取参数失败
+  else {
+    response(sendResponse)
+  }
+}
+
+// 接收background或popup的消息
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  console.log('收到来自 ' + (sender.tab ? 'content-script(' + sender.tab.url + ')' : 'popup或者background') + ' 的消息：', request)
+  if (request?.action === 'gen') {
+    msg.action = request.action
+    getEjsArgs(sendResponse)
   }
 })
+
+//getEjsArgs ()
+
+//msg

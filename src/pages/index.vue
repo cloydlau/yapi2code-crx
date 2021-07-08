@@ -20,16 +20,28 @@ const go = () => {
 
 const { t } = useI18n()
 
+//const delay = 200
 const genBtn = ref(null)
 let loading = ref(false)
-let importMode = ref(localStorage['yapi2code-crx-import-mode'] || 'partially')
 let result = ref('')
 let popover = reactive({
   show: false,
   status: 'failed',
 })
 
+function getInitEjsArgs () {
+  return {
+    name: ``,
+    params: ``,
+    res: ``,
+    importMode: localStorage['yapi2code-crx-import-mode'] || 'partially'
+  }
+}
+
+let ejsArgs = reactive(getInitEjsArgs())
+
 watch(() => popover.show, (n, o) => {
+  // 生成完毕
   if (n) {
     setTimeout(() => {
       popover.show = false
@@ -37,7 +49,7 @@ watch(() => popover.show, (n, o) => {
   }
 })
 
-watch(importMode, (n, o) => {
+watch(() => ejsArgs.importMode, (n, o) => {
   localStorage['yapi2code-crx-import-mode'] = n
 })
 
@@ -45,39 +57,50 @@ watch(importMode, (n, o) => {
 function sendMessageToContentScript (message, callback) {
   // 获取当前选项卡ID
   function getCurrentTabId (callback) {
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-      if (callback) {
-        callback(tabs.length ? tabs[0].id : null)
-      }
+    chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
+      callback?.(tabs[0]?.id)
     })
   }
 
-  getCurrentTabId((tabId) => {
-    chrome.tabs.sendMessage(tabId, message, function (response) {
-      if (callback) callback(response)
+  getCurrentTabId(tabId => {
+    chrome.tabs.sendMessage(tabId, message, response => {
+      callback?.(response)
     })
   })
 }
 
+// 监听来自content-script的消息
 if (envIsPopup) {
-  // 监听来自content-script的消息
+  chrome.tabs.executeScript({
+    file: 'crx/content-script.js'
+  }, results => {
+    //alert(JSON.stringify(results))
+    if (!chrome.runtime.lastError && results) {
+
+    }
+  })
+
   chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     //alert('收到content-script的消息：')
-
     const { action, name, params, res } = request || {}
+    //alert(action)
+    //alert(name)
+    //alert(JSON.stringify(params))
+    //alert(JSON.stringify(res))
     if (action === 'gen') {
       if (name && params && res) {
-        popover.status = 'succeeded'
-        result.value = ejs.render(admateTemplate, {
+        ejsArgs = {
+          ...ejsArgs,
           name,
           params,
-          res,
-          importMode: importMode.value
-        })
-
+          res
+        }
+        popover.status = 'succeeded'
+        result.value = ejs.render(admateTemplate, ejsArgs)
         copyToClipboard(result.value)
       }
       popover.show = true
+      ejsArgs = getInitEjsArgs()
       loading.value = false
     }
 
@@ -96,16 +119,13 @@ function gen () {
     }, (response) => {
       //alert('收到content-script的自动回复：' + response)
     })
+    //getEjsArgs()
   } else {
     //popover.status = 'succeeded'
-    result.value = ejs.render(admateTemplate, {
-      name: ``,
-      params: ``,
-      res: ``,
-      importMode: importMode.value
-    })
+    result.value = ejs.render(admateTemplate, ejsArgs.value)
     copyToClipboard(result.value)
     popover.show = true
+    ejsArgs = getInitEjsArgs()
     loading.value = false
   }
 }
@@ -136,7 +156,7 @@ function gen () {
 
     <div class="mt-3">
       <span>{{ t('import-mode') }}&nbsp;</span>
-      <n-radio-group v-model:value="importMode">
+      <n-radio-group v-model:value="ejsArgs.importMode">
         <n-radio
           :key="i"
           :value="v.value"
