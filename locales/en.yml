@@ -18,4 +18,5 @@ gen:
   button: Generate Code
   succeeded: Succeeded, code is copied.
   failed: Failed, make sure you're targeting query-table API on YApi.
+  timeout: Timeout, make sure you're targeting query-table API on YApi.
 guide: Make sure [query-table] API is selected

@@ -45,7 +45,7 @@ watch(() => popover.show, (n, o) => {
   if (n) {
     setTimeout(() => {
       popover.show = false
-    }, popover.status === 'failed' ? 8000 : 2000)
+    }, popover.status === 'succeeded' ? 2000 : 8000)
   }
 })
 
@@ -99,8 +99,9 @@ if (envIsPopup) {
         result.value = ejs.render(admateTemplate, ejsArgs)
         copyToClipboard(result.value)
       }
-      popover.show = true
       ejsArgs = getInitEjsArgs()
+      result.value = ''
+      popover.show = true
       loading.value = false
     }
 
@@ -119,13 +120,24 @@ function gen () {
     }, (response) => {
       //alert('收到content-script的自动回复：' + response)
     })
+    // 超时
+    setTimeout(() => {
+      if (loading.value === true) {
+        ejsArgs = getInitEjsArgs()
+        result.value = ''
+        popover.status = 'timeout'
+        popover.show = true
+        loading.value = false
+      }
+    }, 3000)
     //getEjsArgs()
   } else {
     //popover.status = 'succeeded'
     result.value = ejs.render(admateTemplate, ejsArgs.value)
     copyToClipboard(result.value)
-    popover.show = true
     ejsArgs = getInitEjsArgs()
+    result.value = ''
+    popover.show = true
     loading.value = false
   }
 }
