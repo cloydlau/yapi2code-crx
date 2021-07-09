@@ -29,7 +29,7 @@
           </el-form-item>
         <% }) %>
         <el-form-item prop="status">
-          <Selector v-model="list__.filter.status" :options="['停用', '启用']" placeholder="状态"/>
+          <Selector v-model="list__.filter.status" :options="options.status" placeholder="状态"/>
         </el-form-item>
         <el-button @click="()=>{$refs.listFilter.resetFields()}">重置</el-button>
       </el-form>
@@ -37,7 +37,13 @@
 
     <div class="flex justify-between my-20px">
       <span>
-        <AuthButton <%- isPartial ? ':show="showAuthButton"' : '' %> @click="c__" name="新增"/>
+        <el-button
+          v-if="hasPermission('新增')"
+          icon="el-icon-circle-plus-outline"
+          @click="c__"
+        >
+          新增
+        </el-button>
       </span>
       <Pagination :total="list__.total" :currentPage.sync="list__.filter.pageNo"/>
     </div>
@@ -54,15 +60,35 @@
       <el-table-column label="<%- res[v].description||res[v].default %>" prop="<%- v %>"/><% }); %>
       <el-table-column label="状态" align="center">
         <template slot-scope="{row:{status}}">
-          <Tag :value="status" options="status"/>
+          <PopSwitch
+            v-bind.sync="popSwitchProps(status)"
+            @click="updateStatus__({id,status:status^1})"
+          />
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center">
         <template slot-scope="{row:{id,status}}">
-          <AuthButton <%- isPartial ? ':show="showAuthButton"' : '' %> @click="r__({id})" name="查看"/>
-          <AuthButton <%- isPartial ? ':show="showAuthButton"' : '' %> @click="u__({id})" name="编辑"/>
-          <AuthButton <%- isPartial ? ':show="showAuthButton"' : '' %> @click="updateStatus__({id,status:status^1})" :name="['启用', '停用'][status]"/>
-          <AuthButton <%- isPartial ? ':show="showAuthButton"' : '' %> @click="d__({id})" name="删除"/>
+          <PopButton
+            v-if="hasPermission('查看')"
+            :elTooltipProps="{content:'查看'}"
+            icon="el-icon-search"
+            @click="r__({id})"
+          />
+          <PopButton
+            v-if="hasPermission('编辑')"
+            :elTooltipProps="{content:'编辑'}"
+            icon="el-icon-edit"
+            type="primary"
+            @click="u__({id})"
+          />
+          <PopButton
+            v-if="hasPermission('删除')"
+            :elTooltipProps="{content:'删除'}"
+            :elPopconfirmProps="{title:'确认删除吗？'}"
+            icon=el-icon-delete
+            type="danger"
+            @click="d__({id})"
+          />
         </template>
       </el-table-column>
     </el-table>
@@ -87,27 +113,46 @@
 </template>
 
 <script>
-import { apiGenerator, mixins, <%- isPartial ? '$filters, $axiosShortcut, showAuthButton' : '' %> } from '@/utils/<%- isPartial ? 'admate' : 'init' %>'
+import { apiGenerator, mixins, <%- isPartial ? '$filters, $axiosShortcut' : '' %> } from '@/utils/<%- isPartial ? 'admate' : 'init' %>'
 import 'kikimore/dist/style.css'
-import { FormDialog, AuthButton, Selector, Pagination, FormItemTip, Tag, Swal } from 'kikimore'
+import { FormDialog, AuthButton, Selector, Pagination, FormItemTip, Swal } from 'kikimore'
 const { success, info, warning, error, confirm } = Swal
+import { hasPermission } from '@/utils/has-permission'
 
 export default {
   mixins: [mixins],
 <% if (isPartial) { %>
-  components: { FormDialog, AuthButton, Selector, Pagination, FormItemTip, Tag },
+  components: { FormDialog, AuthButton, Selector, Pagination, FormItemTip },
   filters: {
-      ...$filters
+    ...$filters
   },
 <% } %>
   data () {
     return {
       api__: apiGenerator("<%= name %>"),
-      <%- isPartial ? 'showAuthButton,' : '' %>
+      popSwitchProps (status) {
+        return {
+          value: status,
+          activeValue: 1,
+          inactiveValue: 0,
+          elTooltipProps: {content:this.options.status[status]},
+          ...this.hasPermission(this.options.status[status]) ?
+            {
+              elPopconfirmProps: { title: `确认${this.options.status.reverse()[status]}吗` },
+            } :
+            {
+              elPopoverProps: { title:'暂无权限' },
+            }
+        }
+      },
+      options: {
+        status: ['停用', '启用'],
+      },
     }
   },
   methods: {
     <%- isPartial ? '...$axiosShortcut,' : '' %>
+    hasPermission,
   }
 }
 </script>
