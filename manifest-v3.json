@@ -1,10 +1,10 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "YApi2Code",
   "version": "0.0.1",
   "description": "Turning YApi docs into Admate codes",
   "author": "cloydlau",
-  "browser_action": {
+  "action": {
     "default_title": "YApi2Code",
     "default_popup": "dist/index.html"
   },
@@ -19,5 +19,7 @@
   "omnibox": {
     "keyword": "yapi2code"
   },
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+  }
 }

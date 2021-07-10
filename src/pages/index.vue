@@ -71,6 +71,8 @@ function sendMessageToContentScript (message, callback) {
 
 // 监听来自content-script的消息
 if (envIsPopup) {
+  // v3
+  //chrome.scripting.executeScript({
   chrome.tabs.executeScript({
     file: 'crx/content-script.js'
   }, results => {
