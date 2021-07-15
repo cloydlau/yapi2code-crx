@@ -117,7 +117,7 @@
 </template>
 
 <script>
-import { apiGenerator, mixins<%- isPartial ? ', $filters, $axiosShortcut' : '' %> } from '@/utils/<%- isPartial ? 'admate' : 'init' %>'
+import { apiGenerator, mixins<%- isPartial ? ', $filters, $axiosShortcut' : '' %> } from '@/utils/admate'
 <% if (isPartial) { %>
 import 'kikimore/dist/style.css'
 import { FormDialog, PopButton, PopSwitch, Selector, Pagination, FormItemTip, Swal } from 'kikimore'
