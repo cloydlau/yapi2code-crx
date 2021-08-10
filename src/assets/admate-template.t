@@ -20,7 +20,7 @@
 <template>
   <div class="p-20px">
     <% if (params) { %>
-      <el-form ref="listFilter" :model="list__.filter" inline>
+      <el-form ref="listFilter__" :model="list__.filter" inline>
         <% Object.keys(params).map(v => { %>
           <el-form-item prop="<%- v %>">
             <el-input v-model.trim="list__.filter.<%- v %>" placeholder="<%- params[v].description %>" clearable>
@@ -29,9 +29,9 @@
           </el-form-item>
         <% }) %>
         <el-form-item prop="status">
-          <Selector v-model="list__.filter.status" :options="options.status" placeholder="状态"/>
+          <Selector :index.sync="list__.filter.status" :options="options.status" placeholder="状态"/>
         </el-form-item>
-        <el-button @click="()=>{$refs.listFilter.resetFields()}">重置</el-button>
+        <el-button @click="()=>{$refs.listFilter__.resetFields()}">重置</el-button>
       </el-form>
     <% } %>
 
