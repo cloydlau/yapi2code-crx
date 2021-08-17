@@ -90,7 +90,7 @@
             :elPopconfirmProps="{title:'确认删除吗？'}"
             <%- isPartial ? 'size="mini"' : '' %>
             type="danger"
-            icon=el-icon-delete
+            icon="el-icon-delete"
             @click="d__({id})"
           />
         </template>
