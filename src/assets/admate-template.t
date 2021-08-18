@@ -46,7 +46,11 @@
           新增
         </el-button>
       </span>
-      <Pagination :total="list__.total" :currentPage.sync="list__.filter.pageNo"/>
+      <el-pagination
+        v-bind="elPaginationProps"
+        :total="list__.total"
+        :currentPage.sync="list__.filter.pageNo"
+      />
     </div>
 
     <el-table
@@ -120,14 +124,14 @@
 import { apiGenerator, mixins<%- isPartial ? ', $filters, $axiosShortcut' : '' %> } from '@/utils/admate'
 <% if (isPartial) { %>
 import 'kikimore/dist/style.css'
-import { FormDialog, PopButton, PopSwitch, Selector, Pagination, FormItemTip, Swal } from 'kikimore'
+import { FormDialog, PopButton, PopSwitch, Selector, Swal } from 'kikimore'
 const { success, info, warning, error, confirm } = Swal
 <% } %>
 
 export default {
   mixins: [mixins],
 <% if (isPartial) { %>
-  components: { FormDialog, PopButton, PopSwitch, Selector, Pagination, FormItemTip },
+  components: { FormDialog, PopButton, PopSwitch, Selector },
   filters: {
     ...$filters
   },
