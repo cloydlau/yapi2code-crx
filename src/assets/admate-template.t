@@ -29,7 +29,7 @@
           </el-form-item>
         <% }) %>
         <el-form-item prop="status">
-          <Selector :index.sync="list__.filter.status" :options="options.status" placeholder="状态"/>
+          <DropDown :index.sync="list__.filter.status" :options="options.status" placeholder="状态"/>
         </el-form-item>
         <el-button @click="()=>{$refs.listFilterForm__.resetFields()}">重置</el-button>
       </el-form>
@@ -124,14 +124,14 @@
 import { apiGenerator, mixins<%- isPartial ? ', $filters, $axiosShortcut' : '' %> } from '@/utils/admate'
 <% if (isPartial) { %>
 import 'kikimore/dist/style.css'
-import { FormDialog, PopButton, PopSwitch, Selector, Swal } from 'kikimore'
+import { FormDialog, PopButton, PopSwitch, DropDown, Swal } from 'kikimore'
 const { success, info, warning, error, confirm } = Swal
 <% } %>
 
 export default {
   mixins: [mixins],
 <% if (isPartial) { %>
-  components: { FormDialog, PopButton, PopSwitch, Selector },
+  components: { FormDialog, PopButton, PopSwitch, DropDown },
   filters: {
     ...$filters
   },
