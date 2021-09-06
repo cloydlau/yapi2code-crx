@@ -5,6 +5,8 @@
 dist
 dist-ssr
 node_modules
-# intellij stuff
 .idea/
 /yapi2code-crx
+*.log
+components.d.ts
+auto-imports.d.ts

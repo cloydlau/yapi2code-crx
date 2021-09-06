@@ -18,9 +18,9 @@ const toggleLocales = () => {
       <file-icons-api-blueprint/>
     </router-link>
 
-    <button class="icon-btn mx-2 !outline-none" :title="t('button.toggle_dark')" @click="toggleDark">
-      <carbon-moon v-if="isDark"/>
-      <carbon-sun v-else/>
+    <button class="icon-btn mx-2 !outline-none" :title="t('button.toggle_dark')" @click="toggleDark()">
+      <carbon-moon v-if="isDark" />
+      <carbon-sun v-else />
     </button>
 
     <a class="icon-btn mx-2" :title="t('button.toggle_langs')" @click="toggleLocales">

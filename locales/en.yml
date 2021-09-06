@@ -9,6 +9,7 @@ intro:
   desc: Turning YApi docs into Admate codes
   dynamic-route: Demo of dynamic route
   hi: Hi, {name}!
+  aka: Also known as
   whats-your-name: What's your name?
 not-found: Not found
 globally: globally

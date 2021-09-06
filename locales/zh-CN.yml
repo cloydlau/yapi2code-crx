@@ -9,6 +9,7 @@ intro:
   desc: YApi文档一键生成Admate代码
   dynamic-route: 动态路由演示
   hi: 你好，{name}
+  aka: 也叫
   whats-your-name: 输入你的名字
 not-found: 未找到页面
 globally: 全局注册
