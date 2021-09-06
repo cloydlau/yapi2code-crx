@@ -29,7 +29,7 @@
           </el-form-item>
         <% }) %>
         <el-form-item prop="status">
-          <DropDown :index.sync="list__.filter.status" :options="options.status" placeholder="状态"/>
+          <KiSelect :index.sync="list__.filter.status" :options="options.status" placeholder="状态"/>
         </el-form-item>
         <el-button @click="()=>{$refs.listFilterForm__.resetFields()}">重置</el-button>
       </el-form>
@@ -65,7 +65,7 @@
       <el-table-column label="<%- res[v].description||res[v].default %>" prop="<%- v %>"/><% }); %>
       <el-table-column label="状态" align="center">
         <template slot-scope="{row:{id,status}}">
-          <PopSwitch
+          <KiPopSwitch
             v-bind="popSwitchProps(status)"
             @change="updateStatus__({id,status:status^1})"
           />
@@ -73,14 +73,14 @@
       </el-table-column>
       <el-table-column label="操作" align="center">
         <template slot-scope="{row:{id,status}}">
-          <PopButton
+          <KiPopButton
             v-if="pageBtnList.includes('查看')"
             :elTooltipProps="{content:'查看'}"
             <%- isPartial ? 'size="mini"' : '' %>
             icon="el-icon-search"
             @click="r__({id})"
           />
-          <PopButton
+          <KiPopButton
             v-if="pageBtnList.includes('编辑')"
             :elTooltipProps="{content:'编辑'}"
             <%- isPartial ? 'size="mini"' : '' %>
@@ -88,7 +88,7 @@
             icon="el-icon-edit"
             @click="u__({id})"
           />
-          <PopButton
+          <KiPopButton
             v-if="pageBtnList.includes('删除')"
             :elTooltipProps="{content:'删除'}"
             :elPopconfirmProps="{title:'确认删除吗？'}"
@@ -101,7 +101,7 @@
       </el-table-column>
     </el-table>
 
-    <FormDialog
+    <KiFormDialog
       :show.sync="row__.show"
       :title="row__.status | $dialogTitle"
       v-model="row__.data"
@@ -116,7 +116,7 @@
           </el-form-item><% })
         %>
       </template>
-    </FormDialog>
+    </KiFormDialog>
   </div>
 </template>
 
@@ -124,14 +124,16 @@
 import { apiGenerator, mixins<%- isPartial ? ', $filters, $axiosShortcut' : '' %> } from '@/utils/admate'
 <% if (isPartial) { %>
 import 'kikimore/dist/style.css'
-import { FormDialog, PopButton, PopSwitch, DropDown, Swal } from 'kikimore'
+import { FormDialog, PopButton, PopSwitch, Select, Swal } from 'kikimore'
 const { success, info, warning, error, confirm } = Swal
 <% } %>
 
 export default {
   mixins: [mixins],
 <% if (isPartial) { %>
-  components: { FormDialog, PopButton, PopSwitch, DropDown },
+  components: {
+   ...Object.fromEntries([FormDialog, PopButton, PopSwitch, Select].map(v => [v.name, v])),
+  },
   filters: {
     ...$filters
   },

@@ -8,7 +8,9 @@
     "build": "vite build",
     "dev": "vite",
     "preview": "vite preview",
-    "preview-https": "serve dist"
+    "preview-https": "serve dist",
+    "clean": "rd /s /q .\\node_modules",
+    "ri": "npm run clean && pnpm i"
   },
   "dependencies": {
     "@mdi/font": "^5.9.55",
