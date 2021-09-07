@@ -1,6 +1,5 @@
 <%
   params && (params = JSON.parse(params).properties)
-  const isPartial = importMode === 'partially'
   // 结构
   // `{"properties":{"data":{"properties":{}}}}`
   let data = JSON.parse(res).properties.data
@@ -76,14 +75,14 @@
           <KiPopButton
             v-if="pageBtnList.includes('查看')"
             :elTooltipProps="{content:'查看'}"
-            <%- isPartial ? 'size="mini"' : '' %>
+            size="mini"
             icon="el-icon-search"
             @click="r__({id})"
           />
           <KiPopButton
             v-if="pageBtnList.includes('编辑')"
             :elTooltipProps="{content:'编辑'}"
-            <%- isPartial ? 'size="mini"' : '' %>
+            size="mini"
             type="primary"
             icon="el-icon-edit"
             @click="u__({id})"
@@ -92,7 +91,7 @@
             v-if="pageBtnList.includes('删除')"
             :elTooltipProps="{content:'删除'}"
             :elPopconfirmProps="{title:'确认删除吗？'}"
-            <%- isPartial ? 'size="mini"' : '' %>
+            size="mini"
             type="danger"
             icon="el-icon-delete"
             @click="d__({id})"
@@ -121,30 +120,20 @@
 </template>
 
 <script>
-import { apiGenerator, mixins<%- isPartial ? ', $filters, $axiosShortcut' : '' %> } from '@/utils/admate'
-<% if (isPartial) { %>
-import 'kikimore/dist/style.css'
-import { FormDialog, PopButton, PopSwitch, Select, Swal } from 'kikimore'
-const { success, info, warning, error, confirm } = Swal
-<% } %>
+import { apiGenerator, mixins } from '@/utils/admate'
 
 export default {
   mixins: [mixins],
-<% if (isPartial) { %>
-  components: {
-   ...Object.fromEntries([FormDialog, PopButton, PopSwitch, Select].map(v => [v.name, v])),
-  },
-  filters: {
-    ...$filters
-  },
-<% } %>
   data () {
     return {
       api__: apiGenerator('<%= name %>'),
     }
   },
   methods: {
-    <%- isPartial ? '...$axiosShortcut,' : '' %>
+
+  },
+  created () {
+
   }
 }
 </script>

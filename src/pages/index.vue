@@ -34,7 +34,7 @@ function getInitEjsArgs () {
     name: ``,
     params: ``,
     res: ``,
-    importMode: localStorage['yapi2code-crx-import-mode'] || 'partially'
+    //importMode: localStorage['yapi2code-crx-import-mode'] || 'partially'
   }
 }
 
@@ -49,9 +49,9 @@ watch(() => popover.show, (n, o) => {
   }
 })
 
-watch(() => ejsArgs.importMode, (n, o) => {
+/*watch(() => ejsArgs.importMode, (n, o) => {
   localStorage['yapi2code-crx-import-mode'] = n
-})
+})*/
 
 // popup主动发消息给content-script
 function sendMessageToContentScript (message, callback) {
@@ -168,8 +168,8 @@ function gen () {
       </div>
     </div>
 
-    <div class="mt-3">
-      <span>{{ t('import-mode') }}&nbsp;</span>
+    <!--    <div class="mt-3">
+          <span>{{ t('import-mode') }}&nbsp;</span>
       <n-radio-group v-model:value="ejsArgs.importMode">
         <n-radio
           :key="i"
@@ -182,9 +182,9 @@ function gen () {
           {{ t(v.value) }}
         </n-radio>
       </n-radio-group>
-    </div>
+    </div>-->
 
-    <div class="mt-3">
+    <div class="mt-10px">
       <n-popover placement="bottom" trigger="manual" :show.sync="popover.show">
         <template #trigger>
           <n-button
