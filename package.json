@@ -48,6 +48,7 @@
     "unplugin-icons": "latest",
     "unplugin-vue-components": "latest",
     "vite": "latest",
+    "vite-plugin-inspect": "latest",
     "vite-plugin-md": "latest",
     "vite-plugin-pages": "latest",
     "vite-plugin-pwa": "latest",
@@ -62,4 +63,5 @@
     "url": "https://github.com/cloydlau/yapi2code-crx"
   },
   "title": "YApi2Code"
+  }
 }
