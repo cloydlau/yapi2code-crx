@@ -70,32 +70,35 @@
           />
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center">
+      <el-table-column label="操作" align="center" min-width="204px">
         <template slot-scope="{row:{id,status}}">
           <KiPopButton
             v-if="pageBtnList.includes('查看')"
-            :elTooltipProps="{content:'查看'}"
             size="mini"
             icon="el-icon-search"
             @click="r__({id})"
-          />
+          >
+            查看
+          </KiPopButton>
           <KiPopButton
             v-if="pageBtnList.includes('编辑')"
-            :elTooltipProps="{content:'编辑'}"
             size="mini"
             type="primary"
             icon="el-icon-edit"
             @click="u__({id})"
-          />
+          >
+            编辑
+          </KiPopButton>
           <KiPopButton
             v-if="pageBtnList.includes('删除')"
-            :elTooltipProps="{content:'删除'}"
             :elPopconfirmProps="{title:'确认删除吗？'}"
             size="mini"
             type="danger"
             icon="el-icon-delete"
             @click="d__({id})"
-          />
+          >
+            删除
+          </KiPopButton>
         </template>
       </el-table-column>
     </el-table>

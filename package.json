@@ -13,20 +13,18 @@
     "ri": "npm run clean && pnpm i"
   },
   "dependencies": {
-    "@mdi/font": "latest",
     "@vueuse/core": "latest",
     "@vueuse/head": "latest",
     "ejs": "latest",
     "naive-ui": "latest",
     "nprogress": "latest",
-    "pinia": "^2.0.0-rc.8",
+    "pinia": "^2.0.0-rc.9",
     "prism-theme-vars": "latest",
-    "roboto-fontface": "latest",
-    "vue": "3",
-    "vue-global-api": "latest",
+    "vue": "^3.2.11",
     "vue-demi": "latest",
-    "vue-i18n": "9",
-    "vue-router": "4"
+    "vue-global-api": "latest",
+    "vue-i18n": "^9.1.7",
+    "vue-router": "^4.0.11"
   },
   "devDependencies": {
     "@iconify/json": "latest",
@@ -52,7 +50,6 @@
     "vite-plugin-md": "latest",
     "vite-plugin-pages": "latest",
     "vite-plugin-pwa": "latest",
-    "vite-plugin-style-import": "latest",
     "vite-plugin-vue-layouts": "latest",
     "vite-plugin-windicss": "latest",
     "vite-ssg": "latest",
@@ -63,5 +60,4 @@
     "url": "https://github.com/cloydlau/yapi2code-crx"
   },
   "title": "YApi2Code"
-  }
 }

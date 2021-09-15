@@ -15,7 +15,6 @@ import Inspect from 'vite-plugin-inspect'
 import Prism from 'markdown-it-prism'
 import LinkAttributes from 'markdown-it-link-attributes'
 import { string } from 'rollup-plugin-string'
-import styleImport from 'vite-plugin-style-import'
 
 const markdownWrapperClasses = 'prose prose-sm m-auto text-left'
 

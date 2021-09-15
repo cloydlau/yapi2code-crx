@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "YApi2Code",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Turning YApi docs into Admate codes",
   "author": "cloydlau",
   "browser_action": {
