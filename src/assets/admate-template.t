@@ -19,18 +19,18 @@
 <template>
   <div class="p-20px">
     <% if (params) { %>
-      <el-form ref="listFilterForm__" :model="list__.filter" inline>
+      <el-form ref="listFilterFormRef" :model="list.filter" inline>
         <% Object.keys(params).map(v => { %>
           <el-form-item prop="<%- v %>">
-            <el-input v-model.trim="list__.filter.<%- v %>" placeholder="<%- params[v].description %>" clearable>
+            <el-input v-model.trim="list.filter.<%- v %>" placeholder="<%- params[v].description %>" clearable>
               <i slot="prefix" class="el-input__icon el-icon-search"/>
             </el-input>
           </el-form-item>
         <% }) %>
         <el-form-item prop="status">
-          <KiSelect :index.sync="list__.filter.status" :options="options.status" placeholder="状态"/>
+          <KiSelect :index.sync="list.filter.status" :options="options.status" placeholder="状态"/>
         </el-form-item>
-        <el-button @click="()=>{$refs.listFilterForm__.resetFields()}">重置</el-button>
+        <el-button @click="reset">重置</el-button>
       </el-form>
     <% } %>
 
@@ -40,22 +40,22 @@
           v-if="pageBtnList.includes('新增')"
           type="primary"
           icon="el-icon-circle-plus-outline"
-          @click="c__"
+          @click="c"
         >
           新增
         </el-button>
       </span>
       <el-pagination
         v-bind="elPaginationProps"
-        :total="list__.total"
-        :currentPage.sync="list__.filter.pageNo"
+        :total="list.total"
+        :currentPage.sync="list.filter.pageNo"
       />
     </div>
 
     <el-table
       stripe
-      v-loading="list__.loading"
-      :data="list__.data"
+      v-loading="list.loading"
+      :data="list.data"
       border
       fit
       highlight-current-row
@@ -66,7 +66,7 @@
         <template slot-scope="{row:{id,status}}">
           <KiPopSwitch
             v-bind="popSwitchProps(status)"
-            @change="updateStatus__({id,status:status^1})"
+            @change="updateStatus({id,status:status^1})"
           />
         </template>
       </el-table-column>
@@ -76,7 +76,7 @@
             v-if="pageBtnList.includes('查看')"
             size="mini"
             icon="el-icon-search"
-            @click="r__({id})"
+            @click="r({id})"
           >
             查看
           </KiPopButton>
@@ -85,7 +85,7 @@
             size="mini"
             type="primary"
             icon="el-icon-edit"
-            @click="u__({id})"
+            @click="u({id})"
           >
             编辑
           </KiPopButton>
@@ -95,7 +95,7 @@
             size="mini"
             type="danger"
             icon="el-icon-delete"
-            @click="d__({id})"
+            @click="d({id})"
           >
             删除
           </KiPopButton>
@@ -104,17 +104,17 @@
     </el-table>
 
     <KiFormDialog
-      :show.sync="row__.show"
-      :title="row__.status | $dialogTitle"
-      v-model="row__.data"
-      :retrieve="retrieve__"
-      :submit="submit__"
-      :readonly="row__.status==='r'"
+      :show.sync="row.show"
+      :title="dialogTitle"
+      v-model="row.data"
+      :submit="submit"
+      :readonly="row.status==='r'"
+      ref="rowDataFormRef"
     >
       <template #el-form>
         <% Object.keys(res).map(v => { %>
           <el-form-item label="<%- res[v].description %>" prop="<%- v %>" verify>
-            <el-input v-model="row__.data.<%- v %>" clearable maxlength="30" show-word-limit/>
+            <el-input v-model.trim="row.data.<%- v %>" clearable maxlength="30" show-word-limit/>
           </el-form-item><% })
         %>
       </template>
@@ -123,19 +123,24 @@
 </template>
 
 <script>
-import { apiGenerator, mixins } from '@/utils/admate'
+import pageMixin from '@/utils/pageMixin'
+import useMyAdmate from '@/utils/useMyAdmate'
 
 export default {
-  mixins: [mixins],
+  mixins: [pageMixin],
+  components: {},
+  setup: () => useMyAdmate({
+    urlPrefix: '<%= name %>',
+  }),
+  created () {
+
+  },
   data () {
     return {
-      api__: apiGenerator('<%= name %>'),
+
     }
   },
   methods: {
-
-  },
-  created () {
 
   },
 }
