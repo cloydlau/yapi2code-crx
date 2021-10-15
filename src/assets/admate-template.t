@@ -19,7 +19,7 @@
 <template>
   <div class="p-20px">
     <% if (params) { %>
-      <el-form ref="listFilterFormRef" :model="list.filter" inline>
+      <el-form ref="listFilterRef" :model="list.filter" inline>
         <% Object.keys(params).map(v => { %>
           <el-form-item prop="<%- v %>">
             <el-input v-model.trim="list.filter.<%- v %>" placeholder="<%- params[v].description %>" clearable>
@@ -104,17 +104,17 @@
     </el-table>
 
     <KiFormDialog
-      :show.sync="row.show"
-      :title="dialogTitle"
-      v-model="row.data"
-      :submit="submit"
-      :readonly="row.status==='r'"
-      ref="rowDataFormRef"
+      :show.sync="form.show"
+      :title="formTitle"
+      v-model="form.data"
+      :submit="submitForm"
+      :readonly="form.status==='r'"
+      ref="formRef"
     >
       <template #el-form>
         <% Object.keys(res).map(v => { %>
-          <el-form-item label="<%- res[v].description %>" prop="<%- v %>" verify>
-            <el-input v-model.trim="row.data.<%- v %>" clearable maxlength="30" show-word-limit/>
+          <el-form-item label="<%- res[v].description %>" prop="<%- v %>">
+            <el-input v-model.trim="form.data.<%- v %>" clearable maxlength="30" show-word-limit/>
           </el-form-item><% })
         %>
       </template>

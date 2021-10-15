@@ -18,13 +18,13 @@
     "ejs": "latest",
     "naive-ui": "latest",
     "nprogress": "latest",
-    "pinia": "^2.0.0-rc.9",
+    "pinia": "^2.0.0-rc.13",
     "prism-theme-vars": "latest",
-    "vue": "^3.2.11",
+    "vue": "^3.2.20",
     "vue-demi": "latest",
     "vue-global-api": "latest",
-    "vue-i18n": "^9.1.7",
-    "vue-router": "^4.0.11"
+    "vue-i18n": "^9.2.0-beta.12",
+    "vue-router": "^4.0.12"
   },
   "devDependencies": {
     "@iconify/json": "latest",
