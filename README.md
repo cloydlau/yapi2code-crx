@@ -1,6 +1,6 @@
 # 代码生成器（Chrome / Edge 插件）
 
-[admate](https://github.com/cloydlau/admate) 配套工具。
+[Admate](https://github.com/cloydlau/admate) 配套工具。
 
 管理后台要展示的字段众多，传统的做法是从接口文档复制字段名至代码中，并不断重复这一过程，
 
