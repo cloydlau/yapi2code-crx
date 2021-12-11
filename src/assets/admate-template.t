@@ -104,11 +104,12 @@
     </el-table>
 
     <KiFormDialog
-      :show.sync="form.show"
       :title="formTitle"
+      :show.sync="form.show"
+      :readonly="form.status==='r'"
+      :loading="form.loading"
       v-model="form.data"
       :submit="submitForm"
-      :readonly="form.status==='r'"
       ref="formRef"
     >
       <template #el-form>
