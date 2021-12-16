@@ -125,12 +125,12 @@
 
 <script>
 import pageMixin from '@/utils/pageMixin'
-import useMyAdmate from '@/utils/useMyAdmate'
+import useAdmateAdapter from '@/utils/useAdmateAdapter'
 
 export default {
   mixins: [pageMixin],
   components: {},
-  setup: () => useMyAdmate({
+  setup: () => useAdmateAdapter({
     urlPrefix: '<%= name %>',
   }),
   created () {
