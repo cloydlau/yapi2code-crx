@@ -19,7 +19,7 @@
 <template>
   <div class="p-20px">
     <% if (params) { %>
-      <el-form ref="listFilterRef" :model="list.filter" inline>
+      <el-form ref="listFilterRef" :model="list.filter" inline class="list-filter">
         <% Object.keys(params).map(v => { %>
           <el-form-item prop="<%- v %>">
             <el-input v-model.trim="list.filter.<%- v %>" placeholder="<%- params[v].description %>" clearable>
@@ -52,14 +52,7 @@
       />
     </div>
 
-    <el-table
-      stripe
-      v-loading="list.loading"
-      :data="list.data"
-      border
-      fit
-      highlight-current-row
-    >
+    <el-table :data="list.data" v-loading="list.loading" stripe border fit>
       <% Object.keys(res).map(v => { %>
       <el-table-column label="<%- res[v].description||res[v].default %>" prop="<%- v %>"/><% }); %>
       <el-table-column label="状态" align="center">
