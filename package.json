@@ -9,8 +9,8 @@
     "dev": "vite",
     "preview": "vite preview",
     "preview-https": "serve dist",
-    "clean": "rd /s /q .\\node_modules",
-    "ri": "npm run clean && pnpm i"
+    "c": "rd /s /q .\\node_modules",
+    "ri": "npm run c && pnpm i"
   },
   "dependencies": {
     "@vueuse/core": "latest",
